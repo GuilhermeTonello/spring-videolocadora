@@ -2,8 +2,11 @@
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/config :: head(pagina='Index')"></head>
 <body>
-	
 	<header th:replace="fragments/navbar :: navbar"></header>
+	
+	<section th:replace="fragments/cards :: locacoes_recentes"></section>
+	
+	<section th:replace="fragments/cards :: devolucoes_recentes"></section>
 	
 	<th:block th:replace="fragments/config :: scripts"></th:block>
 </body>

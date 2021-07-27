@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html
+	xmlns:th="http://www.thymeleaf.org">
+	
+	
+	<section th:fragment="locacoes_recentes" class="section">
+		<div class="card">
+			<div class="card-content">
+				<div class="media">
+					<div class="media-content">
+						<p class="title is-4">Últimas locações:</p>
+					</div>
+				</div>
+	
+				<div class="content">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Cliente</th>
+								<th class="is-hidden-mobile">Filmes</th>
+								<th class="is-hidden-mobile">Data de locação</th>
+								<th>Ver</th>
+							</tr>
+						</thead>
+						<tbody>
+							<th:block th:each="i: ${#numbers.sequence(1, 5)}">
+								<tr>
+									<td>Guilherme Carrara</td>
+									<td class="is-hidden-mobile">Indiana Jones, De Volta para o Futuro 3, Star Wars 3, ...</td>
+									<td class="is-hidden-mobile">1 de Janeiro de 2021 às 15:45:20</td>
+									<td>
+										<a th:href="@{/locacao/ver/1}">
+											<i class="fas fa-search"></i>
+										</a>
+									</td>
+								</tr>
+							</th:block>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<section th:fragment="devolucoes_recentes" class="section">
+		<div class="card">
+			<div class="card-content">
+				<div class="media">
+					<div class="media-content">
+						<p class="title is-4">Últimas devoluções:</p>
+					</div>
+				</div>
+	
+				<div class="content">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Cliente</th>
+								<th class="is-hidden-mobile">Filmes</th>
+								<th class="is-hidden-mobile">Data de locação</th>
+								<th class="is-hidden-mobile">Data de devolução</th>
+								<th>Ver</th>
+							</tr>
+						</thead>
+						<tbody>
+							<th:block th:each="i: ${#numbers.sequence(1, 5)}">
+								<tr>
+									<td>Guilherme Carrara</td>
+									<td class="is-hidden-mobile">Indiana Jones, De Volta para o Futuro 3, Star Wars 3, ...</td>
+									<td class="is-hidden-mobile">1 de Janeiro de 2021 às 15:45:20</td>
+									<td class="is-hidden-mobile">2 de Janeiro de 2021 às 15:45:20</td>
+									<td>
+										<a th:href="@{/locacao/ver/1}">
+											<i class="fas fa-search"></i>
+										</a>
+									</td>
+								</tr>
+							</th:block>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+</html>
