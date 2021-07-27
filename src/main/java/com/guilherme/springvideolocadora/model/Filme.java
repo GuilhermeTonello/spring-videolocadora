@@ -22,4 +22,8 @@ public class Filme {
 	
 	private Set<String> categorias;
 	
+	private Integer estoqueTotal;
+	
+	private Integer estoqueAtual;
+	
 }
