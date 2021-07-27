@@ -1,0 +1,13 @@
+nav {
+	box-shadow: 1px 1px 5px #4d4d4d;
+}
+
+nav div.navbar-brand a.navbar-item {
+	font-weight: bold;
+	color: hsl(217, 71%, 53%);
+	transition: 0.2s ease all;
+}
+
+nav div.navbar-brand a.navbar-item:hover {
+	filter: brightness(65%);
+}
