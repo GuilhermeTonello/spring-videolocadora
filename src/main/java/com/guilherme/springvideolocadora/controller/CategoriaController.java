@@ -1,6 +1,8 @@
 package com.guilherme.springvideolocadora.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,9 +21,9 @@ public class CategoriaController {
 	private CategoriaRepository categoriaRepository;
 	
 	@GetMapping({"listar", ""})
-	public ModelAndView paginaListar() {
+	public ModelAndView paginaListar(@PageableDefault(sort = "nome") Pageable paginacao) {
 		ModelAndView mav = new ModelAndView("paginas/categoria/categoria-lista");
-		mav.addObject("categorias", categoriaRepository.findAll());
+		mav.addObject("categorias", categoriaRepository.findAll(paginacao));
 		return mav;
 	}
 	

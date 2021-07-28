@@ -1,13 +1,19 @@
-nav {
+header nav {
 	box-shadow: 1px 1px 5px #4d4d4d;
 }
 
-nav div.navbar-brand a.navbar-item {
+header nav div.navbar-brand a.navbar-item {
 	font-weight: bold;
 	color: hsl(217, 71%, 53%);
 	transition: 0.2s ease all;
 }
 
-nav div.navbar-brand a.navbar-item:hover {
+header nav div.navbar-brand a.navbar-item:hover {
 	filter: brightness(65%);
+}
+
+td, th {
+	width: 150px; 
+	max-width: 150px;
+	word-wrap: break-word;
 }
