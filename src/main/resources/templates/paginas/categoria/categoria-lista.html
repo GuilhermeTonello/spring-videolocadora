@@ -34,7 +34,10 @@
 							<a th:href="@{|/categoria/editar/${categoria.getId()}|}" class="ml-6 is-hidden-mobile" title="Editar">
 								<i class="fas fa-pen"></i>
 							</a>
-							<a th:href="@{|/categoria/deletar/${categoria.getId()}|}" class="ml-6 is-hidden-mobile" title="Deletar">
+							<a th:href="@{|/categoria/deletar/${categoria.getId()}|}"
+								 class="ml-6 is-hidden-mobile" title="Deletar"
+								 th:confirm-delete="|Deseja deletar a categoria ${categoria.getNome()}?|"
+								 onclick="return confirm(this.getAttribute('confirm-delete'));">
 								<i class="fas fa-trash"></i>
 							</a>
 							<div class="modal" th:id="|modal-${categoria.getId()}|">
@@ -54,7 +57,10 @@
 										<a class="button is-link" th:href="@{|/categoria/editar/${categoria.getId()}|}">
 											<i class="mr-3 fas fa-pen"></i> Editar
 										</a>
-										<a class="button is-danger" th:href="@{|/categoria/deletar/${categoria.getId()}|}">
+										<a class="button is-danger" 
+											th:href="@{|/categoria/deletar/${categoria.getId()}|}"
+											th:confirm-delete="|Deseja deletar a categoria ${categoria.getNome()}?|"
+											onclick="return confirm(this.getAttribute('confirm-delete'));">
 											<i class="mr-3 fas fa-trash"></i> Deletar
 										</a>
 									</footer>
