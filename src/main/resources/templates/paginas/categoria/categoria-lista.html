@@ -20,10 +20,10 @@
 							<a th:onclick="openModal([[${categoria.getId()}]])">
 								<i class="fas fa-search"></i>
 							</a>
-							<a th:href="@{|/categoria/editar/${categoria.getId()}|}" class="ml-6">
+							<a th:href="@{|/categoria/editar/${categoria.getId()}|}" class="ml-6 is-hidden-mobile">
 								<i class="fas fa-pen"></i>
 							</a>
-							<a th:href="@{|/categoria/deletar/${categoria.getId()}|}" class="ml-6">
+							<a th:href="@{|/categoria/deletar/${categoria.getId()}|}" class="ml-6 is-hidden-mobile">
 								<i class="fas fa-trash"></i>
 							</a>
 							<div class="modal" th:id="|modal-${categoria.getId()}|">
@@ -40,8 +40,12 @@
 										</ul>
 									</section>
 									<footer class="modal-card-foot">
-										<a class="button is-link">Editar</a>
-										<a class="button is-danger">Deletar</a>
+										<a class="button is-link" th:href="@{|/categoria/editar/${categoria.getId()}|}">
+											<i class="mr-3 fas fa-pen"></i> Editar
+										</a>
+										<a class="button is-danger" th:href="@{|/categoria/deletar/${categoria.getId()}|}">
+											<i class="mr-3 fas fa-trash"></i> Deletar
+										</a>
 									</footer>
 								</div>
 							</div>
