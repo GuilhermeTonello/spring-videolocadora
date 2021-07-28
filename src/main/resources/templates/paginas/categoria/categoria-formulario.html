@@ -7,13 +7,13 @@
 	<main class="section">
 		<div class="columns">
 			<div class="column">
-				<form th:action="@{/categoria/cadastrar}" method="POST">
-					<input type="hidden" />
+				<form th:action="@{/categoria/salvar}" method="POST" th:object="${categoria}">
+					<input type="hidden" th:field="*{id}" />
 					
 					<div class="field">
-						<label class="nome">Nome da categoria:</label>
+						<label class="label" for="nome">Nome da categoria:</label>
 						<div class="control">
-							<input class="input" type="text" placeholder="Nome da categoria..." id="nome" />
+							<input class="input" type="text" placeholder="Nome da categoria..." th:field="*{nome}" />
 						</div>
 					</div>
 					

@@ -18,3 +18,13 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 });
+
+function openModal(id) {
+	let modal = document.querySelector('div.modal#modal-' + id);
+	modal.classList.add('is-active');
+}
+
+function closeModal(id) {
+	let modal = document.querySelector('div.modal#modal-' + id);
+	modal.classList.remove('is-active');
+}

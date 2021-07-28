@@ -13,19 +13,38 @@
 				</tr>
 			</thead>
 			<tbody>
-				<th:block th:each="i: ${#numbers.sequence(1, 5)}">
+				<th:block th:each="categoria : ${categorias}">
 					<tr>
-						<td>Ficção Científica</td>
+						<td>[[${categoria.getNome()}]]</td>
 						<td>
-							<a th:href="@{/locacao/ver/1}">
+							<a th:onclick="openModal([[${categoria.getId()}]])">
 								<i class="fas fa-search"></i>
 							</a>
-							<a th:href="@{/locacao/editar/1}" class="ml-6">
+							<a th:href="@{|/categoria/editar/${categoria.getId()}|}" class="ml-6">
 								<i class="fas fa-pen"></i>
 							</a>
-							<a th:href="@{/locacao/deletar/1}" class="ml-6">
+							<a th:href="@{|/categoria/deletar/${categoria.getId()}|}" class="ml-6">
 								<i class="fas fa-trash"></i>
 							</a>
+							<div class="modal" th:id="|modal-${categoria.getId()}|">
+								<div class="modal-background" th:onclick="closeModal([[${categoria.getId()}]])"></div>
+								<div class="modal-card">
+									<header class="modal-card-head">
+										<p class="modal-card-title">[[${categoria.getNome()}]]</p>
+										<button class="delete" th:onclick="closeModal([[${categoria.getId()}]])" aria-label="close"></button>
+									</header>
+									<section class="modal-card-body">
+										<ul>
+											<li>Identificador: [[${categoria.getId()}]]</li>
+											<li>Nome: [[${categoria.getNome()}]]</li>
+										</ul>
+									</section>
+									<footer class="modal-card-foot">
+										<a class="button is-link">Editar</a>
+										<a class="button is-danger">Deletar</a>
+									</footer>
+								</div>
+							</div>
 						</td>
 					</tr>
 				</th:block>
