@@ -32,7 +32,7 @@
 						</a>
 						
 						<div class="navbar-dropdown">
-							<a class="navbar-item" th:href="@{/locacao}">
+							<a class="navbar-item" th:href="@{/locacao/cadastrar}">
 								Cadastrar locação
 							</a>
 							<a class="navbar-item" th:href="@{/locacao/listar}">
@@ -67,7 +67,7 @@
 		</a>
 		
 		<div class="navbar-dropdown">
-			<a class="navbar-item" th:href="@{|/${objeto.toLowerCase()}|}">
+			<a class="navbar-item" th:href="@{|/${objeto.toLowerCase().concat('/cadastrar')}|}">
 				Cadastrar [[${objeto}]]
 			</a>
 			<a class="navbar-item" th:href="@{|/${objeto.toLowerCase().concat('/listar')}|}">
