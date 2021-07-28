@@ -5,6 +5,17 @@
 	<header th:replace="fragments/navbar :: navbar"></header>
 	
 	<main class="section">
+		<form th:action="@{/categoria/listar}">			
+			<div class="field">
+				<label class="label" for="nome">Nome da categoria:</label>
+				<div class="control">
+					<input class="input" type="text" placeholder="Nome da categoria..." name="nome" />
+				</div>
+			</div>
+			
+			<button class="button is-link mt-2 mb-5" type="submit" role="button">PESQUISAR</button>
+		</form>
+		
 		<table class="table is-striped is-fullwidth">
 			<thead>
 				<tr>
@@ -55,28 +66,30 @@
 			</tbody>
 		</table>
 		<nav class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
-			<a th:if="${categorias.getNumber() > 0}" th:href="@{|/categoria/listar?page=${categorias.getNumber() - 1}|}" class="pagination-previous">
+			<a th:if="${categorias.getNumber() > 0}" 
+				th:href="@{|/categoria/listar?page=${categorias.getNumber() - 1}&nome=${nome}|}" 
+				class="pagination-previous">
 				Voltar
 			</a>
 			<a th:if="${categorias.getNumber() < categorias.getTotalPages() - 1}" 
-				th:href="@{|/categoria/listar?page=${categorias.getNumber() + 1}|}" 
+				th:href="@{|/categoria/listar?page=${categorias.getNumber() + 1}&nome=${nome}|}" 
 				class="pagination-next">
 				Avançar
 			</a>
 			<ul class="pagination-list">
 				<li>
-					<a th:href="@{/categoria/listar?page=0}" class="pagination-link">Início</a>
+					<a th:href="@{|/categoria/listar?page=0&nome=${nome}|}" class="pagination-link">Início</a>
 				</li>
 				<li>
 					<a th:if="${categorias.getNumber() > 1}" 
-						th:href="@{|/categoria/listar?page=${categorias.getNumber() - 2}|}"
+						th:href="@{|/categoria/listar?page=${categorias.getNumber() - 2}&nome=${nome}|}"
 						class="pagination-link">
 						[[${categorias.getNumber() - 1}]]
 					</a>
 				</li>
 				<li>
 					<a th:if="${categorias.getNumber() > 0}" 
-						th:href="@{|/categoria/listar?page=${categorias.getNumber() - 1}|}"
+						th:href="@{|/categoria/listar?page=${categorias.getNumber() - 1}&nome=${nome}|}"
 						class="pagination-link">
 						[[${categorias.getNumber()}]]
 					</a>
@@ -86,20 +99,20 @@
 				</li>
 				<li>
 					<a th:if="${categorias.getNumber() < categorias.getTotalPages() - 1}" 
-						th:href="@{|/categoria/listar?page=${categorias.getNumber() + 1}|}" 
+						th:href="@{|/categoria/listar?page=${categorias.getNumber() + 1}&nome=${nome}|}" 
 						class="pagination-link">
 						[[${categorias.getNumber() + 2}]]
 					</a>
 				</li>
 				<li>
 					<a th:if="${categorias.getNumber() < categorias.getTotalPages() - 2}" 
-						th:href="@{|/categoria/listar?page=${categorias.getNumber() + 2}|}" 
+						th:href="@{|/categoria/listar?page=${categorias.getNumber() + 2}&nome=${nome}|}" 
 						class="pagination-link">
 						[[${categorias.getNumber() + 3}]]
 					</a>
 				</li>
 				<li>
-					<a th:href="@{|/categoria/listar?page=${categorias.getTotalPages() - 1}|}" class="pagination-link">Fim</a>
+					<a th:href="@{|/categoria/listar?page=${categorias.getTotalPages() - 1}&nome=${nome}|}" class="pagination-link">Fim</a>
 				</li>
 			</ul>
 		</nav>

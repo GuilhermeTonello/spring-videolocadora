@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.guilherme.springvideolocadora.model.Categoria;
@@ -21,9 +22,17 @@ public class CategoriaController {
 	private CategoriaRepository categoriaRepository;
 	
 	@GetMapping({"listar", ""})
-	public ModelAndView paginaListar(@PageableDefault(sort = "nome") Pageable paginacao) {
+	public ModelAndView paginaListar(
+			@RequestParam(name = "nome", required = false) String nome,
+			@PageableDefault(sort = "nome") Pageable paginacao) {
 		ModelAndView mav = new ModelAndView("paginas/categoria/categoria-lista");
-		mav.addObject("categorias", categoriaRepository.findAll(paginacao));
+		if (nome != null) {
+			mav.addObject("categorias", categoriaRepository.findByNomeIgnoreCaseContaining(nome, paginacao));
+			mav.addObject("nome", nome);
+		} else {
+			mav.addObject("categorias", categoriaRepository.findAll(paginacao));
+			mav.addObject("nome", "");
+		}
 		return mav;
 	}
 	
