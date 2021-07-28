@@ -5,6 +5,8 @@
 	<header th:replace="fragments/navbar :: navbar"></header>
 	
 	<main class="section">
+		<div th:replace="fragments/action-messages :: erro-nao-encontrado"></div>
+		<div th:replace="fragments/action-messages :: sucesso"></div>
 		<form th:action="@{/categoria/listar}">			
 			<div class="field">
 				<label class="label" for="nome">Nome da categoria:</label>

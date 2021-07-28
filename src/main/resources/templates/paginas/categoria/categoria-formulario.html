@@ -7,6 +7,7 @@
 	<main class="section">
 		<div class="columns">
 			<div class="column">
+				<div th:replace="fragments/action-messages :: erros-formulario"></div>
 				<form th:action="@{/categoria/salvar}" method="POST" th:object="${categoria}">
 					<input type="hidden" th:field="*{id}" />
 					

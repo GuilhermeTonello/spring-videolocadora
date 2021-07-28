@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html
+	xmlns:th="http://www.thymeleaf.org">
+	
+	<div th:fragment="erros-formulario" class="content">
+		<ul th:if="${erros != null}">
+			<li class="has-text-danger" th:each="erro : ${erros}">
+				<i class="fas fa-exclamation-circle"></i> [[${erro.getDefaultMessage()}]]
+			</li>
+		</ul>
+	</div>
+	
+	<div th:fragment="erro-nao-encontrado" class="content">
+		<ul th:if="${erro_nao_encontrado != null}">
+			<li class="has-text-danger">
+				<i class="fas fa-exclamation-circle"></i> [[${erro_nao_encontrado}]]
+			</li>
+		</ul>
+	</div>
+	
+	<div th:fragment="sucesso" class="content">
+		<ul th:if="${mensagem_sucesso != null}">
+			<li class="has-text-success">
+				<i class="fas fa-check-circle"></i> [[${mensagem_sucesso}]]
+			</li>
+		</ul>
+	</div>
+	
+</html>
