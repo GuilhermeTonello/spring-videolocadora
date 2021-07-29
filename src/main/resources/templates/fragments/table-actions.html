@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+	<th:block th:fragment="coluna-acoes">
+		<a th:onclick="openModal([[${id}]])" title="Ver informações">
+			<i class="fas fa-search"></i>
+		</a>
+		<a th:href="@{|/${baseUrl}/editar/${id}|}" class="ml-6 is-hidden-mobile" title="Editar">
+			<i class="fas fa-pen"></i>
+		</a>
+		<a th:href="@{|/${baseUrl}/deletar/${id}|}"
+			 class="ml-6 is-hidden-mobile" title="Deletar"
+			 th:confirm-delete="|${confirmDeleteText}|"
+			 onclick="return confirm(this.getAttribute('confirm-delete'));">
+			<i class="fas fa-trash"></i>
+		</a>
+	</th:block>
+
+</html>

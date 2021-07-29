@@ -30,18 +30,10 @@
 					<tr>
 						<td>[[${categoria.getNome()}]]</td>
 						<td>
-							<a th:onclick="openModal([[${categoria.getId()}]])" title="Ver informações">
-								<i class="fas fa-search"></i>
-							</a>
-							<a th:href="@{|/categoria/editar/${categoria.getId()}|}" class="ml-6 is-hidden-mobile" title="Editar">
-								<i class="fas fa-pen"></i>
-							</a>
-							<a th:href="@{|/categoria/deletar/${categoria.getId()}|}"
-								 class="ml-6 is-hidden-mobile" title="Deletar"
-								 th:confirm-delete="|Deseja deletar a categoria ${categoria.getNome()}?|"
-								 onclick="return confirm(this.getAttribute('confirm-delete'));">
-								<i class="fas fa-trash"></i>
-							</a>
+							<th:block th:replace="fragments/table-actions :: coluna-acoes(id=${categoria.getId()}, 
+								baseUrl='categoria', 
+								confirmDeleteText='Deseja deletar a categoria ' + ${categoria.getNome()} + '?')">
+							</th:block>
 							<div class="modal" th:id="|modal-${categoria.getId()}|">
 								<div th:replace="fragments/modal :: modal-background(id=${categoria.getId()})"></div>
 								<div class="modal-card">

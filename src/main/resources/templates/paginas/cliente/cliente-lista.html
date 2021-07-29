@@ -35,18 +35,10 @@
 						<td>[[${cliente.getCpf()}]]</td>
 						<td>[[${cliente.getTelefone()}]]</td>
 						<td>
-							<a th:onclick="openModal([[${cliente.getId()}]])" title="Ver informações">
-								<i class="fas fa-search"></i>
-							</a>
-							<a th:href="@{|/cliente/editar/${cliente.getId()}|}" class="ml-6 is-hidden-mobile" title="Editar">
-								<i class="fas fa-pen"></i>
-							</a>
-							<a th:href="@{|/cliente/deletar/${cliente.getId()}|}"
-								 class="ml-6 is-hidden-mobile" title="Deletar"
-								 th:confirm-delete="|Deseja deletar o cliente ${cliente.getNome()}?|"
-								 onclick="return confirm(this.getAttribute('confirm-delete'));">
-								<i class="fas fa-trash"></i>
-							</a>
+							<th:block th:replace="fragments/table-actions :: coluna-acoes(id=${cliente.getId()}, 
+								baseUrl='cliente', 
+								confirmDeleteText='Deseja deletar o(a) cliente ' + ${cliente.getNome()} + '?')">
+							</th:block>
 							<div class="modal" th:id="|modal-${cliente.getId()}|">
 								<div th:replace="fragments/modal :: modal-background(id=${cliente.getId()})"></div>
 								<div class="modal-card">
