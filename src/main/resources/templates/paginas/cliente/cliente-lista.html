@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/config :: head(pagina='Lista de clientes')"></head>
+<body>
+	<header th:replace="fragments/navbar :: navbar"></header>
+	
+	<main class="section">
+		<div th:replace="fragments/action-messages :: erro-nao-encontrado"></div>
+		<div th:replace="fragments/action-messages :: sucesso"></div>
+		
+		<form th:action="@{/cliente/listar}">			
+			<div class="field">
+				<label class="label" for="busca">Nome, cpf ou telefone do cliente:</label>
+				<div class="control">
+					<input class="input" type="text" placeholder="Nome, cpf ou telefone do cliente..." name="busca" />
+				</div>
+			</div>
+			
+			<button class="button is-link mt-2 mb-5" type="submit" role="button">PESQUISAR</button>
+		</form>
+		
+		<table class="table is-striped is-fullwidth">
+			<thead>
+				<tr>
+					<th>Nome</th>
+					<th>CPF</th>
+					<th>Telefone</th>
+					<th>Ações</th>
+				</tr>
+			</thead>
+			<tbody>
+				<th:block th:each="cliente : ${clientes}">
+					<tr>
+						<td>[[${cliente.getNome()}]]</td>
+						<td>[[${cliente.getCpf()}]]</td>
+						<td>[[${cliente.getTelefone()}]]</td>
+						<td>
+							<a th:onclick="openModal([[${cliente.getId()}]])" title="Ver informações">
+								<i class="fas fa-search"></i>
+							</a>
+							<a th:href="@{|/cliente/editar/${cliente.getId()}|}" class="ml-6 is-hidden-mobile" title="Editar">
+								<i class="fas fa-pen"></i>
+							</a>
+							<a th:href="@{|/cliente/deletar/${cliente.getId()}|}"
+								 class="ml-6 is-hidden-mobile" title="Deletar"
+								 th:confirm-delete="|Deseja deletar o cliente ${cliente.getNome()}?|"
+								 onclick="return confirm(this.getAttribute('confirm-delete'));">
+								<i class="fas fa-trash"></i>
+							</a>
+							<div class="modal" th:id="|modal-${cliente.getId()}|">
+								<div class="modal-background" th:onclick="closeModal([[${cliente.getId()}]])"></div>
+								<div class="modal-card">
+									<header class="modal-card-head">
+										<p class="modal-card-title">[[${cliente.getNome()}]]</p>
+										<button class="delete" th:onclick="closeModal([[${cliente.getId()}]])" aria-label="close"></button>
+									</header>
+									<section class="modal-card-body">
+										<ul>
+											<li>Identificador: [[${cliente.getId()}]]</li>
+											<li>Nome: [[${cliente.getNome()}]]</li>
+											<li>CPF: [[${cliente.getCpf()}]]</li>
+											<li>Telefone: [[${cliente.getTelefone()}]]</li>
+										</ul>
+									</section>
+									<footer class="modal-card-foot">
+										<a class="button is-link" th:href="@{|/cliente/editar/${cliente.getId()}|}">
+											<i class="mr-3 fas fa-pen"></i> Editar
+										</a>
+										<a class="button is-danger" 
+											th:href="@{|/cliente/deletar/${cliente.getId()}|}"
+											th:confirm-delete="|Deseja deletar o cliente ${cliente.getNome()}?|"
+											onclick="return confirm(this.getAttribute('confirm-delete'));">
+											<i class="mr-3 fas fa-trash"></i> Deletar
+										</a>
+									</footer>
+								</div>
+							</div>
+						</td>
+					</tr>
+				</th:block>
+			</tbody>
+		</table>
+		<nav th:replace="fragments/paginacao :: paginacao(lista=${clientes}, objeto='cliente')"></nav>
+	</main>
+	
+	<th:block th:replace="fragments/config :: scripts"></th:block>
+</body>
+</html>

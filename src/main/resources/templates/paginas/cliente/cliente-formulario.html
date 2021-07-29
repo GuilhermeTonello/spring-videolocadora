@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/config :: head(pagina='Formulário de clientes')"></head>
+<body>
+	<header th:replace="fragments/navbar :: navbar"></header>
+	
+	<main class="section">
+		<div class="columns">
+			<div class="column">
+				<div th:replace="fragments/action-messages :: erros-formulario"></div>
+				<form th:action="@{/cliente/salvar}" method="POST" th:object="${cliente}">
+					<input type="hidden" th:field="*{id}" />
+					
+					<h3 class="title is-5">Informações básicas:</h3>
+					<div class="field">
+						<label class="label" for="nome">Nome do cliente:</label>
+						<div class="control">
+							<input class="input" type="text" placeholder="Nome do cliente..." th:field="*{nome}" />
+						</div>
+					</div>
+					
+					<div class="field">
+						<label class="label" for="cpf">CPF do cliente:</label>
+						<div class="control">
+							<input class="input" type="text" placeholder="CPF do cliente..." th:field="*{cpf}" />
+						</div>
+					</div>
+					
+					<div class="field mb-6">
+						<label class="label" for="telefone">Telefone do cliente:</label>
+						<div class="control">
+							<input class="input" type="text" placeholder="Telefone do cliente..." th:field="*{telefone}" />
+						</div>
+					</div>
+					
+					<h3 class="title is-5">Endereço:</h3>
+					<div class="field">
+						<label class="label" for="endereco.cep">CEP:</label>
+						<div class="control">
+							<input class="input" type="text" placeholder="CEP..." th:field="*{endereco.cep}" onblur="pesquisarCep(this.value);" />
+						</div>
+					</div>
+					
+					<div class="field">
+						<label class="label" for="endereco.cidade">Cidade:</label>
+						<div class="control">
+							<input class="input" type="text" placeholder="Cidade..." th:field="*{endereco.cidade}" />
+						</div>
+					</div>
+					
+					<div class="field">
+						<label class="label" for="endereco.rua">Rua:</label>
+						<div class="control">
+							<input class="input" type="text" placeholder="Rua..." th:field="*{endereco.rua}" />
+						</div>
+					</div>
+					
+					<div class="field">
+						<label class="label" for="endereco.bairro">Bairro:</label>
+						<div class="control">
+							<input class="input" type="text" placeholder="Bairro..." th:field="*{endereco.bairro}" />
+						</div>
+					</div>
+					
+					<div class="field">
+						<label class="label" for="endereco.complemento">Complemento:</label>
+						<div class="control">
+							<input class="input" type="text" placeholder="Complemento..." th:field="*{endereco.complemento}" />
+						</div>
+					</div>
+					
+					<button class="button is-link mt-5 is-medium" type="submit" role="button">SALVAR</button>
+				</form>
+			</div>
+		</div>
+	</main>
+	
+	<th:block th:replace="fragments/config :: scripts"></th:block>
+</body>
+</html>

@@ -28,3 +28,46 @@ function closeModal(id) {
 	let modal = document.querySelector('div.modal#modal-' + id);
 	modal.classList.remove('is-active');
 }
+
+function limparCamposEndereco() {
+    document.getElementById('endereco.rua').value = ("");
+    document.getElementById('endereco.bairro').value = ("");
+    document.getElementById('endereco.cidade').value = ("");
+}
+
+function meu_callback(conteudo) {
+    if (!("erro" in conteudo)) {
+        document.getElementById('endereco.rua').value = (conteudo.logradouro);
+        document.getElementById('endereco.bairro').value = (conteudo.bairro);
+        document.getElementById('endereco.cidade').value = (conteudo.localidade);
+    } else {
+        limparCamposEndereco();
+    }
+}
+    
+function pesquisarCep(valor) {
+    var cep = valor.replace(/\D/g, '');
+
+    if (cep != "") {
+
+        var validacep = /^[0-9]{8}$/;
+
+        if(validacep.test(cep)) {
+
+            document.getElementById('endereco.rua').value = "...";
+            document.getElementById('endereco.bairro').value = "...";
+            document.getElementById('endereco.cidade').value = "...";
+
+            var script = document.createElement('script');
+            script.src = 'https://viacep.com.br/ws/'+ cep + '/json/?callback=meu_callback';
+
+            document.body.appendChild(script);
+
+        } else {
+            limparCamposEndereco();
+        }
+    } else {
+        //cep sem valor, limpa formulário.
+        limparCamposEndereco();
+    }
+};
