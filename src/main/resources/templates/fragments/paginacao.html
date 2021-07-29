@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html
+	xmlns:th="http://www.thymeleaf.org">
+	
+	<nav th:fragment="paginacao" class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
+		<a th:if="${lista.getNumber() > 0}" 
+			th:href="@{|/${objeto}/listar?page=${lista.getNumber() - 1}&busca=${busca}|}" 
+			class="pagination-previous">
+			Voltar
+		</a>
+		<a th:if="${lista.getNumber() < lista.getTotalPages() - 1}" 
+			th:href="@{|/${objeto}/listar?page=${lista.getNumber() + 1}&busca=${busca}|}" 
+			class="pagination-next">
+			Avançar
+		</a>
+		<ul class="pagination-list">
+			<li>
+				<a th:href="@{|/${objeto}/listar?page=0&busca=${busca}|}" class="pagination-link">Início</a>
+			</li>
+			<li>
+				<a th:if="${lista.getNumber() > 1}" 
+					th:href="@{|/${objeto}/listar?page=${lista.getNumber() - 2}&busca=${busca}|}"
+					class="pagination-link">
+					[[${lista.getNumber() - 1}]]
+				</a>
+			</li>
+			<li>
+				<a th:if="${lista.getNumber() > 0}" 
+					th:href="@{|/${objeto}/listar?page=${lista.getNumber() - 1}&busca=${busca}|}"
+					class="pagination-link">
+					[[${lista.getNumber()}]]
+				</a>
+			</li>
+			<li>
+				<a class="pagination-link is-current">[[${lista.getNumber() + 1}]]</a>
+			</li>
+			<li>
+				<a th:if="${lista.getNumber() < lista.getTotalPages() - 1}" 
+					th:href="@{|/${objeto}/listar?page=${lista.getNumber() + 1}&busca=${busca}|}" 
+					class="pagination-link">
+					[[${lista.getNumber() + 2}]]
+				</a>
+			</li>
+			<li>
+				<a th:if="${lista.getNumber() < lista.getTotalPages() - 2}" 
+					th:href="@{|/${objeto}/listar?page=${lista.getNumber() + 2}&busca=${busca}|}" 
+					class="pagination-link">
+					[[${lista.getNumber() + 3}]]
+				</a>
+			</li>
+			<li>
+				<a th:href="@{|/${objeto}/listar?page=${lista.getTotalPages() - 1}&busca=${busca}|}" class="pagination-link">Fim</a>
+			</li>
+		</ul>
+	</nav>
+	
+</html>

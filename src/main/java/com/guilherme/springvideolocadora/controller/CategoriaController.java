@@ -30,15 +30,15 @@ public class CategoriaController {
 	
 	@GetMapping({"listar", ""})
 	public ModelAndView paginaListar(
-			@RequestParam(name = "nome", required = false) String nome,
+			@RequestParam(name = "busca", required = false) String busca,
 			@PageableDefault(sort = "nome") Pageable paginacao) {
 		ModelAndView mav = new ModelAndView("paginas/categoria/categoria-lista");
-		if (nome != null) {
-			mav.addObject("categorias", categoriaRepository.findByNomeIgnoreCaseContaining(nome, paginacao));
-			mav.addObject("nome", nome);
+		if (busca != null) {
+			mav.addObject("categorias", categoriaRepository.findByNomeIgnoreCaseContaining(busca, paginacao));
+			mav.addObject("busca", busca);
 		} else {
 			mav.addObject("categorias", categoriaRepository.findAll(paginacao));
-			mav.addObject("nome", "");
+			mav.addObject("busca", "");
 		}
 		return mav;
 	}
