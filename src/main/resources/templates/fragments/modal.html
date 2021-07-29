@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html
+	xmlns:th="http://www.thymeleaf.org">
+	
+	<div th:fragment="modal-background" class="modal-background" th:onclick="closeModal([[${id}]])"></div>
+	
+	<header th:fragment="modal-header" class="modal-card-head">
+		<p class="modal-card-title">[[${titulo}]]</p>
+		<button class="delete" th:onclick="closeModal([[${id}]])" aria-label="close"></button>
+	</header>
+	
+	<footer th:fragment="modal-footer" class="modal-card-foot">
+		<a class="button is-link" th:href="@{|/${baseUrl}/editar/${id}|}">
+			<i class="mr-3 fas fa-pen"></i> Editar
+		</a>
+		<a class="button is-danger" 
+			th:href="@{|/${baseUrl}/deletar/${id}|}"
+			th:confirm-delete="|${confirmDeleteText}|"
+			onclick="return confirm(this.getAttribute('confirm-delete'));">
+			<i class="mr-3 fas fa-trash"></i> Deletar
+		</a>
+	</footer>
+	
+</html>

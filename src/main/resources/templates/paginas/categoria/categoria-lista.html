@@ -43,28 +43,19 @@
 								<i class="fas fa-trash"></i>
 							</a>
 							<div class="modal" th:id="|modal-${categoria.getId()}|">
-								<div class="modal-background" th:onclick="closeModal([[${categoria.getId()}]])"></div>
+								<div th:replace="fragments/modal :: modal-background(id=${categoria.getId()})"></div>
 								<div class="modal-card">
-									<header class="modal-card-head">
-										<p class="modal-card-title">[[${categoria.getNome()}]]</p>
-										<button class="delete" th:onclick="closeModal([[${categoria.getId()}]])" aria-label="close"></button>
-									</header>
+									<header th:replace="fragments/modal :: modal-header(id=${categoria.getId()}, titulo=${categoria.getNome()})"></header>
 									<section class="modal-card-body">
 										<ul>
 											<li>Identificador: [[${categoria.getId()}]]</li>
 											<li>Nome: [[${categoria.getNome()}]]</li>
 										</ul>
 									</section>
-									<footer class="modal-card-foot">
-										<a class="button is-link" th:href="@{|/categoria/editar/${categoria.getId()}|}">
-											<i class="mr-3 fas fa-pen"></i> Editar
-										</a>
-										<a class="button is-danger" 
-											th:href="@{|/categoria/deletar/${categoria.getId()}|}"
-											th:confirm-delete="|Deseja deletar a categoria ${categoria.getNome()}?|"
-											onclick="return confirm(this.getAttribute('confirm-delete'));">
-											<i class="mr-3 fas fa-trash"></i> Deletar
-										</a>
+									<footer 
+										th:replace="fragments/modal :: modal-footer(id=${categoria.getId()}, 
+											baseUrl='categoria', 
+											confirmDeleteText='Deseja deletar a categoria ' + ${categoria.getNome()} + '?')">
 									</footer>
 								</div>
 							</div>
