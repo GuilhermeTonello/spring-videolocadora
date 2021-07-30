@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/config :: head(pagina='Formulário de filmes')"></head>
+<body>
+	<header th:replace="fragments/navbar :: navbar"></header>
+	
+	<main class="section">
+		<div class="columns">
+			<div class="column">
+				<div th:replace="fragments/action-messages :: erros-formulario"></div>
+				<form th:action="@{/filme/salvar}" method="POST" th:object="${filme}">
+					<input type="hidden" th:field="*{id}" />
+					
+					<h5 class="title is-5">Informações básicas:</h5>
+					<div class="field">
+						<label class="label" for="titulo">Título do filme:</label>
+						<div class="control">
+							<input class="input" type="text" placeholder="Título do filme..." th:field="*{titulo}" />
+						</div>
+					</div>
+					
+					<div class="field">
+						<label class="label" for="sinopse">Sinopse do filme:</label>
+						<div class="control">
+							<textarea class="textarea" placeholder="Sinopse to filme..." th:field="*{sinopse}"></textarea>
+						</div>
+					</div>
+					
+					<div class="field">
+						<label class="label" for="valor">Valor para alugar o filme:</label>
+						<div class="control">
+							<input class="input" type="number" placeholder="Valor para alugar o filme..." th:field="*{valor}" step="0.01" />
+						</div>
+					</div>
+					
+					<div class="field mb-6">
+						<label class="label" for="estoqueTotal">Estoque total:</label>
+						<div class="control">
+							<input class="input" type="number" placeholder="Estoque total..." th:field="*{estoqueTotal}" step="1" />
+						</div>
+					</div>
+					
+					<h5 class="title is-5">Categorias:</h5>
+					<div>
+						<th:block th:each="categoria : ${categorias}">
+							<span class="tag is-info">
+								<label class="checkbox" th:for="|categorias${categoriaStat.index + 1}|">
+										<input type="checkbox" 
+											th:field="*{categorias}" 
+											th:value="${categoria.getNome()}" />
+										[[${categoria.getNome()}]]
+								</label>
+							</span>
+						</th:block>
+					</div>
+					
+					<button class="button is-link mt-5 is-medium" type="submit" role="button">SALVAR</button>
+				</form>
+			</div>
+		</div>
+	</main>
+	
+	<th:block th:replace="fragments/config :: scripts"></th:block>
+</body>
+</html>

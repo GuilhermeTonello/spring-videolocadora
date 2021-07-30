@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/config :: head(pagina='Lista de filmes')"></head>
+<body>
+	<header th:replace="fragments/navbar :: navbar"></header>
+	
+	<main class="section">
+		<div th:replace="fragments/action-messages :: erro-nao-encontrado"></div>
+		<div th:replace="fragments/action-messages :: sucesso"></div>
+		
+		<form th:action="@{/filme/listar}">			
+			<div class="field">
+				<label class="label" for="busca">Título do filme:</label>
+				<div class="control">
+					<input class="input" type="text" placeholder="Título do filme..." name="busca" />
+				</div>
+			</div>
+			
+			<button class="button is-link mt-2 mb-5" type="submit" role="button">PESQUISAR</button>
+		</form>
+		
+		<table class="table is-striped is-fullwidth">
+			<thead>
+				<tr>
+					<th>Título</th>
+					<th class="is-hidden-mobile">Valor</th>
+					<th class="is-hidden-mobile">Estoque Atual/Total</th>
+					<th>Ações</th>
+				</tr>
+			</thead>
+			<tbody>
+				<th:block th:each="filme : ${filmes}">
+					<tr>
+						<td>[[${filme.getTitulo()}]]</td>
+						<td class="is-hidden-mobile">R$ [[${filme.getValor()}]]</td>
+						<td class="is-hidden-mobile">[[${filme.getEstoqueAtual()}]]/[[${filme.getEstoqueTotal()}]]</td>
+						<td>
+							<th:block th:replace="fragments/table-actions :: coluna-acoes(id=${filme.getId()}, 
+								baseUrl='filme', 
+								confirmDeleteText='Deseja deletar o filme ' + ${filme.getTitulo()} + '?')">
+							</th:block>
+							<div class="modal" th:id="|modal-${filme.getId()}|">
+								<div th:replace="fragments/modal :: modal-background(id=${filme.getId()})"></div>
+								<div class="modal-card">
+									<header th:replace="fragments/modal :: modal-header(id=${filme.getId()}, titulo=${filme.getTitulo()})"></header>
+									<section class="modal-card-body">
+										<h4 class="title is-4">Informações básicas:</h4>
+										<ul class="mb-5">
+											<li>Identificador: [[${filme.getId()}]]</li>
+											<li>Título: [[${filme.getTitulo()}]]</li>
+											<li>Valor: R$ [[${filme.getValor()}]]</li>
+											<li>Estoque Atual/Total: [[${filme.getEstoqueAtual()}]]/[[${filme.getEstoqueTotal()}]]</li>
+										</ul>
+										
+										<h4 class="title is-4">Sinopse:</h4>
+										<p class="mb-5">[[${filme.getSinopse()}]]</p>
+										
+										<h4 class="title is-4">Categorias:</h4>
+										<ul>
+											<li>[[${filme.getCategorias().toString().replace("[", "").replace("]", "")}]]</li>
+										</ul>
+									</section>
+									<footer 
+										th:replace="fragments/modal :: modal-footer(id=${filme.getId()}, 
+											baseUrl='filme', 
+											confirmDeleteText='Deseja deletar o filme ' + ${filme.getTitulo()} + '?')">
+									</footer>
+								</div>
+							</div>
+						</td>
+					</tr>
+				</th:block>
+			</tbody>
+		</table>
+		<nav th:replace="fragments/paginacao :: paginacao(lista=${filmes}, objeto='filme')"></nav>
+	</main>
+	
+	<th:block th:replace="fragments/config :: scripts"></th:block>
+</body>
+</html>
