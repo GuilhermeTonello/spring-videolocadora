@@ -12,11 +12,11 @@ public class Endereco {
 	@Size(max = 15, message = "O máximo de caracteres para o CEP deve ser 15.")
 	private String cep;
 	
-	@NotBlank(message = "A Cidade não pode estar vazio.")
+	@NotBlank(message = "A Cidade não pode estar vazia.")
 	@Size(max = 30, message = "O máximo de caracteres para a Cidade deve ser 30.")
 	private String cidade;
 	
-	@NotBlank(message = "A Rua não pode estar vazio.")
+	@NotBlank(message = "A Rua não pode estar vazia.")
 	@Size(max = 60, message = "O máximo de caracteres para a Rua deve ser 60.")
 	private String rua;
 	
