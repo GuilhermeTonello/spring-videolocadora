@@ -49,7 +49,9 @@
 											<li>Identificador: [[${filme.getId()}]]</li>
 											<li>Título: [[${filme.getTitulo()}]]</li>
 											<li>Valor: R$ [[${filme.getValor()}]]</li>
-											<li>Estoque Atual/Total: [[${filme.getEstoqueAtual()}]]/[[${filme.getEstoqueTotal()}]]</li>
+											<li>Estoque Total: [[${filme.getEstoqueTotal()}]]</li>
+											<li>Estoque Atual: [[${filme.getEstoqueAtual()}]]</li>
+											<li>Quantidade alugada: [[${filme.getEstoqueTotal() - filme.getEstoqueAtual()}]]</li>
 										</ul>
 										
 										<h4 class="title is-4">Sinopse:</h4>
