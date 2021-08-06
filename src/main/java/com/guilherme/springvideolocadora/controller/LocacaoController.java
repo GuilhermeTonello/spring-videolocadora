@@ -67,13 +67,27 @@ public class LocacaoController {
 					.addObject("locacao", locacao)
 					.addObject("erros", result.getAllErrors());
 		}
+		
+		Filme filme = filmeRepository.findByTitulo(locacao.getFilme()).get();
+		
 		if (!locacao.getId().isBlank()) {
 			Optional<Locacao> optLocacaoNoBancoDeDados = locacaoRepository.findById(locacao.getId());
 			if (optLocacaoNoBancoDeDados.isPresent()) {
+				
 				Locacao locacaoNoBancoDeDados = optLocacaoNoBancoDeDados.get();
+				Filme filmeNoBancoDeDados = filmeRepository.findByTitulo(locacaoNoBancoDeDados.getFilme()).get();
+				
 				locacao.setDataLocacao(locacaoNoBancoDeDados.getDataLocacao());
 				if (locacaoNoBancoDeDados.getDataDevolucao() != null) {
 					locacao.setDataDevolucao(locacaoNoBancoDeDados.getDataDevolucao());
+				}
+				if (!locacaoNoBancoDeDados.getFilme().equals(locacao.getFilme())
+						&& locacao.getDataDevolucao() == null) {
+					filmeNoBancoDeDados.setEstoqueAtual(filmeNoBancoDeDados.getEstoqueAtual() + 1);
+					filmeRepository.save(filmeNoBancoDeDados);
+					
+					filme.setEstoqueAtual(filme.getEstoqueAtual() - 1);
+					filmeRepository.save(filme);
 				}
 			} else {
 				atributos.addFlashAttribute("erro_nao_encontrado", "Locação " + locacao.getId() + " não encontrada!");
@@ -81,11 +95,9 @@ public class LocacaoController {
 			}
 		} else {
 			locacao.setDataLocacao(LocalDateTime.now());
+			filme.setEstoqueAtual(filme.getEstoqueAtual() - 1);
+			filmeRepository.save(filme);
 		}
-		
-		Filme filme = filmeRepository.findByTitulo(locacao.getFilme()).get();
-		filme.setEstoqueAtual(filme.getEstoqueAtual() - 1);
-		filmeRepository.save(filme);
 		
 		locacaoRepository.save(locacao);
 		atributos.addFlashAttribute("mensagem_sucesso", "Locação de " + locacao.getClienteCpf() + " salva!");
@@ -133,6 +145,13 @@ public class LocacaoController {
 			atributos.addFlashAttribute("erro_nao_encontrado", "Locação " + id + " não encontrada!");
 			return redirectToLista();
 		}
+		
+		if (locacao.get().getDataDevolucao() == null) {
+			Filme filme = filmeRepository.findByTitulo(locacao.get().getFilme()).get();
+			filme.setEstoqueAtual(filme.getEstoqueAtual() + 1);
+			filmeRepository.save(filme);
+		}
+		
 		String locacaoId = locacao.get().getId();
 		locacaoRepository.deleteById(id);
 		atributos.addFlashAttribute("mensagem_sucesso", "Locação " + locacaoId + " deletada!");
