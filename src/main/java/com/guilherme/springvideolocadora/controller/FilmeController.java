@@ -71,6 +71,10 @@ public class FilmeController {
 			} else
 				result.addError(new ObjectError("filme", "Esse Estoque Total causará um Estoque Atual negativo!"));
 		}
+		Optional<Filme> optFilme = filmeRepository.findByTitulo(filme.getTitulo());
+		if (optFilme.isPresent() && !optFilme.get().getId().equals(filme.getId())) {
+			result.addError(new ObjectError("filme", "Esse Filme já existe!"));
+		}
 		if (result.hasErrors()) {
 			return paginaCadastrar()
 						.addObject("erros", result.getAllErrors())

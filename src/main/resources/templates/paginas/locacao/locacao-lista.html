@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/config :: head(pagina='Lista de locações')"></head>
+<body>
+	<header th:replace="fragments/navbar :: navbar"></header>
+	
+	<main class="section">
+		<div th:replace="fragments/action-messages :: erro-nao-encontrado"></div>
+		<div th:replace="fragments/action-messages :: sucesso"></div>
+		<form th:action="@{/locacao/listar}">			
+			<div class="field">
+				<label class="label" for="busca">CPF do cliente, data de locação ou data de devolução:</label>
+				<div class="control">
+					<input class="input" type="text" placeholder="CPF do cliente, data de locação ou data de devolução..." name="busca" />
+				</div>
+			</div>
+			
+			<button class="button is-link mt-2 mb-5" type="submit" role="button">PESQUISAR</button>
+		</form>
+		
+		<table class="table is-striped is-fullwidth">
+			<thead>
+				<tr>
+					<th>CPF</th>
+					<th>Filme</th>
+					<th>Ações</th>
+				</tr>
+			</thead>
+			<tbody>
+				<th:block th:each="locacao : ${locacoes}">
+					<tr>
+						<td>[[${locacao.getClienteCpf()}]]</td>
+						<td>[[${locacao.getFilme()}]]</td>
+						<td>
+							<th:block th:replace="fragments/table-actions :: coluna-acoes(id=${locacao.getId()}, 
+								baseUrl='locacao', 
+								confirmDeleteText='Deseja deletar a locação de ' + ${locacao.getClienteCpf()} + '?')">
+							</th:block>
+							<div class="modal" th:id="|modal-${locacao.getId()}|">
+								<div th:replace="fragments/modal :: modal-background(id=${locacao.getId()})"></div>
+								<div class="modal-card">
+									<header th:replace="fragments/modal :: modal-header(id=${locacao.getId()}, titulo=${locacao.getDataLocacao()})"></header>
+									<section class="modal-card-body">
+										<h4 class="title is-4">Informações gerais:</h4>
+										<ul class="mb-5">
+											<li>Identificador: [[${locacao.getId()}]]</li>
+											<li>CPF do cliente: [[${locacao.getClienteCpf()}]]</li>
+											<li>Valor da locação: [[${locacao.getValor()}]]</li>
+											<li>Data de locação: 
+											[[${locacao.getDataLocacao().getDayOfMonth()+ '/' + locacao.getDataLocacao().getMonth() + '/' + locacao.getDataLocacao().getYear()
+											+ ' ' + locacao.getDataLocacao().getHour() + 'h:' + locacao.getDataLocacao().getMinute() + 'min:' + locacao.getDataLocacao().getSecond() + 's'}]]
+											</li>
+											<li>Data de devolução: [[${locacao.getDataDevolucao() == null ? "NÃO DEVOLVIDO" : 
+											locacao.getDataDevolucao().getDayOfMonth()+ '/' + locacao.getDataDevolucao().getMonth() + '/' + locacao.getDataDevolucao().getYear()
+											+ ' ' + locacao.getDataDevolucao().getHour() + 'h:' + locacao.getDataDevolucao().getMinute() + 'min:' + locacao.getDataDevolucao().getSecond() + 's'}]]</li>
+										</ul>
+										
+										<h4 class="title is-4">Filme alugado:</h4>
+										<ul>
+											<li>[[${locacao.getFilme()}]]</li>
+										</ul>
+									</section>
+									<footer th:fragment="modal-footer" class="modal-card-foot">
+										<a class="button is-link" th:href="@{|/locacao/editar/${locacao.getId()}|}">
+											<i class="mr-3 fas fa-pen"></i> Editar
+										</a>
+										<a class="button is-danger" 
+											th:href="@{|/locacao/deletar/${locacao.getId()}|}"
+											th:confirm-delete="|Deseja deletar a locação de ${locacao.getClienteCpf()}?|"
+											onclick="return confirm(this.getAttribute('confirm-delete'));">
+											<i class="mr-3 fas fa-trash"></i> Deletar
+										</a>
+										<a class="button is-success" 
+											th:href="@{|/locacao/devolver/${locacao.getId()}|}"
+											th:confirm-devolucao="|Deseja devolver a locação de ${locacao.getClienteCpf()}?|"
+											onclick="return confirm(this.getAttribute('confirm-devolucao'));">
+											<i class="mr-3 fas fa-cart-arrow-down"></i> Completar devolução
+										</a>
+									</footer>
+								</div>
+							</div>
+						</td>
+					</tr>
+				</th:block>
+			</tbody>
+		</table>
+		<nav th:replace="fragments/paginacao :: paginacao(lista=${locacoes}, objeto='locacao')"></nav>
+	</main>
+	
+	<th:block th:replace="fragments/config :: scripts"></th:block>
+</body>
+</html>

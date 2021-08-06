@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/config :: head(pagina='Formulário de locações')"></head>
+<body>
+	<header th:replace="fragments/navbar :: navbar"></header>
+	
+	<main class="section">
+		<div class="columns">
+			<div class="column">
+				<div th:replace="fragments/action-messages :: erros-formulario"></div>
+				<form th:action="@{/locacao/salvar}" method="POST" th:object="${locacao}">
+					<input type="hidden" th:field="*{id}" />
+					
+					<div class="field mb-6">
+						<label class="label" for="nome">CPF do cliente:</label>
+						<div class="control">
+							<input class="input" type="text" placeholder="CPF do cliente..." th:field="*{clienteCpf}" />
+						</div>
+					</div>
+					
+					<h5 class="title is-5">Filme:</h5>
+					<div class="mb-6">
+						<div class="select">
+							<select th:field="*{filme}" onchange="changeValor(this);">
+								<option th:each="filme : ${filmes}" th:value="|${filme.getTitulo()}|"
+									th:data-valor="|${filme.getValor()}|">[[${filme.getTitulo()}]]</option>
+							</select>
+						</div>
+					</div>
+					
+					<div class="field">
+						<label class="label" for="valor">Valor da locação:</label>
+						<div class="control">
+							<input th:if="${locacao.getId() != null}" class="input" type="number" step="0.01" th:field="*{valor}" />
+							<input th:if="${locacao.getId() == null}" class="input" type="number" step="0.01" name="valor" id="valor" value="0" />
+						</div>
+					</div>
+					
+					<button class="button is-link mt-5 is-medium" type="submit" role="button">SALVAR</button>
+				</form>
+			</div>
+		</div>
+	</main>
+	
+	<th:block th:replace="fragments/config :: scripts"></th:block>
+</body>
+</html>

@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;
@@ -20,6 +21,7 @@ public class Filme {
 	
 	@NotBlank(message = "O Título não pode estar vazio.")
 	@Size(max = 90, message = "O máximo de caracteres para o Nome deve ser 90.")
+	@Indexed(unique = true)
 	private String titulo;
 	
 	@NotBlank(message = "A Sinopse não pode estar vazia.")

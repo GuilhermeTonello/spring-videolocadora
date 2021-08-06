@@ -29,6 +29,11 @@ function closeModal(id) {
 	modal.classList.remove('is-active');
 }
 
+function changeValor(object) {
+	let valor = document.getElementById('valor');
+	valor.value = parseFloat(object.options[object.selectedIndex].getAttribute('data-valor'));
+}
+
 function limparCamposEndereco() {
     document.getElementById('endereco.rua').value = ("");
     document.getElementById('endereco.bairro').value = ("");
