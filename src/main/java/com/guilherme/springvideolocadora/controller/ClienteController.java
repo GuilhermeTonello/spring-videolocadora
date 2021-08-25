@@ -29,7 +29,7 @@ public class ClienteController {
 	private ClienteRepository clienteRepository;
 	
 	@GetMapping({"listar", ""})
-	public ModelAndView paginaListar(@RequestParam(name = "busca", required = false, defaultValue = "") String busca,
+	public ModelAndView paginaListar(@RequestParam(name = "busca", required = false) String busca,
 			@PageableDefault(sort = "nome") Pageable paginacao) {
 		ModelAndView mav = new ModelAndView("paginas/cliente/cliente-lista");
 		if (busca != null) {

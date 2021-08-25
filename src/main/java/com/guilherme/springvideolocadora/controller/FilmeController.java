@@ -33,7 +33,7 @@ public class FilmeController {
 	private CategoriaRepository categoriaRepository;
 	
 	@GetMapping({"listar", ""})
-	public ModelAndView paginaListar(@RequestParam(name = "busca", required = false, defaultValue = "") String busca, 
+	public ModelAndView paginaListar(@RequestParam(name = "busca", required = false) String busca, 
 			@PageableDefault(sort = "titulo") Pageable paginacao) {
 		ModelAndView mav = new ModelAndView("paginas/filme/filme-lista");
 		if (busca != null) {

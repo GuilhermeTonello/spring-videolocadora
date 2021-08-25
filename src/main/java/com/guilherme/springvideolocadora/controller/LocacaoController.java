@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -40,11 +41,16 @@ public class LocacaoController {
 	private ClienteRepository clienteRepository;
 	
 	@GetMapping({"listar", ""})
-	public ModelAndView paginaListar(@RequestParam(name = "busca", required = false, defaultValue = "") String busca,
-			@PageableDefault(sort = "dataLocacao") Pageable paginacao) {
+	public ModelAndView paginaListar(@RequestParam(name = "busca", required = false) String busca,
+			@PageableDefault(sort = "dataLocacao", direction = Direction.DESC) Pageable paginacao) {
 		ModelAndView mav = new ModelAndView("paginas/locacao/locacao-lista");
-		mav.addObject("locacoes", locacaoRepository.findAll(paginacao));
-		mav.addObject("busca", "");
+		if (busca != null) {
+			mav.addObject("locacoes", locacaoRepository.findByClienteCpf(busca, paginacao));
+			mav.addObject("busca", busca);
+		} else {
+			mav.addObject("locacoes", locacaoRepository.findAll(paginacao));
+			mav.addObject("busca", "");
+		}
 		return mav;
 	}
 	
