@@ -73,5 +73,4 @@ Caso você não saiba qual a URI do MongoDB, acesse o site: [https://docs.mongod
 9. Para parar o projeto, aperta **Ctrl + C** no terminal ou prompt de comando
 
 ## TODO:
-- Locações e devoluções recentes
 - Sistema de segurança
