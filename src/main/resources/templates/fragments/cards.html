@@ -17,7 +17,7 @@
 						<thead>
 							<tr>
 								<th>Cliente</th>
-								<th class="is-hidden-mobile">Filmes</th>
+								<th class="is-hidden-mobile">Filme</th>
 								<th class="is-hidden-mobile">Data de locação</th>
 								<th>Ver</th>
 							</tr>
@@ -35,50 +35,8 @@
 										<a th:onclick="openModal([[${locacao.getId()}]])" title="Ver informações">
 											<i class="fas fa-search"></i>
 										</a>
+										<div th:replace="this :: locacao-modal"></div>
 									</td>
-									<div class="modal" th:id="|modal-${locacao.getId()}|">
-										<div th:replace="fragments/modal :: modal-background(id=${locacao.getId()})"></div>
-										<div class="modal-card">
-											<header th:replace="fragments/modal :: modal-header(id=${locacao.getId()}, titulo=${locacao.getFilme()})"></header>
-											<section class="modal-card-body">
-												<h4 class="title is-4">Informações gerais:</h4>
-												<ul class="mb-5">
-													<li>Identificador: [[${locacao.getId()}]]</li>
-													<li>CPF do cliente: [[${locacao.getClienteCpf()}]]</li>
-													<li>Valor da locação: [[${locacao.getValor()}]]</li>
-													<li>Data de locação: 
-													[[${locacao.getDataLocacao().getDayOfMonth()+ '/' + locacao.getDataLocacao().getMonth() + '/' + locacao.getDataLocacao().getYear()
-													+ ' ' + locacao.getDataLocacao().getHour() + 'h:' + locacao.getDataLocacao().getMinute() + 'min:' + locacao.getDataLocacao().getSecond() + 's'}]]
-													</li>
-													<li>Data de devolução: [[${locacao.getDataDevolucao() == null ? "NÃO DEVOLVIDO" : 
-													locacao.getDataDevolucao().getDayOfMonth()+ '/' + locacao.getDataDevolucao().getMonth() + '/' + locacao.getDataDevolucao().getYear()
-													+ ' ' + locacao.getDataDevolucao().getHour() + 'h:' + locacao.getDataDevolucao().getMinute() + 'min:' + locacao.getDataDevolucao().getSecond() + 's'}]]</li>
-												</ul>
-												
-												<h4 class="title is-4">Filme alugado:</h4>
-												<ul>
-													<li>[[${locacao.getFilme()}]]</li>
-												</ul>
-											</section>
-											<footer th:fragment="modal-footer" class="modal-card-foot">
-												<a class="button is-link" th:href="@{|/locacao/editar/${locacao.getId()}|}">
-													<i class="mr-3 fas fa-pen"></i> Editar
-												</a>
-												<a class="button is-danger" 
-													th:href="@{|/locacao/deletar/${locacao.getId()}|}"
-													th:confirm-delete="|Deseja deletar a locação de ${locacao.getClienteCpf()}?|"
-													onclick="return confirm(this.getAttribute('confirm-delete'));">
-													<i class="mr-3 fas fa-trash"></i> Deletar
-												</a>
-												<a class="button is-success" 
-													th:href="@{|/locacao/devolver/${locacao.getId()}|}"
-													th:confirm-devolucao="|Deseja devolver a locação de ${locacao.getClienteCpf()}?|"
-													onclick="return confirm(this.getAttribute('confirm-devolucao'));">
-													<i class="mr-3 fas fa-cart-arrow-down"></i> Completar devolução
-												</a>
-											</footer>
-										</div>
-									</div>
 								</tr>
 							</th:block>
 						</tbody>
@@ -102,7 +60,7 @@
 						<thead>
 							<tr>
 								<th>Cliente</th>
-								<th class="is-hidden-mobile">Filmes</th>
+								<th class="is-hidden-mobile">Filme</th>
 								<th class="is-hidden-mobile">Data de locação</th>
 								<th class="is-hidden-mobile">Data de devolução</th>
 								<th>Ver</th>
@@ -125,50 +83,8 @@
 										<a th:onclick="openModal([[${locacao.getId()}]])" title="Ver informações">
 											<i class="fas fa-search"></i>
 										</a>
+										<div th:replace="this :: locacao-modal"></div>
 									</td>
-									<div class="modal" th:id="|modal-${locacao.getId()}|">
-										<div th:replace="fragments/modal :: modal-background(id=${locacao.getId()})"></div>
-										<div class="modal-card">
-											<header th:replace="fragments/modal :: modal-header(id=${locacao.getId()}, titulo=${locacao.getFilme()})"></header>
-											<section class="modal-card-body">
-												<h4 class="title is-4">Informações gerais:</h4>
-												<ul class="mb-5">
-													<li>Identificador: [[${locacao.getId()}]]</li>
-													<li>CPF do cliente: [[${locacao.getClienteCpf()}]]</li>
-													<li>Valor da locação: [[${locacao.getValor()}]]</li>
-													<li>Data de locação: 
-													[[${locacao.getDataLocacao().getDayOfMonth()+ '/' + locacao.getDataLocacao().getMonth() + '/' + locacao.getDataLocacao().getYear()
-													+ ' ' + locacao.getDataLocacao().getHour() + 'h:' + locacao.getDataLocacao().getMinute() + 'min:' + locacao.getDataLocacao().getSecond() + 's'}]]
-													</li>
-													<li>Data de devolução: [[${locacao.getDataDevolucao() == null ? "NÃO DEVOLVIDO" : 
-													locacao.getDataDevolucao().getDayOfMonth()+ '/' + locacao.getDataDevolucao().getMonth() + '/' + locacao.getDataDevolucao().getYear()
-													+ ' ' + locacao.getDataDevolucao().getHour() + 'h:' + locacao.getDataDevolucao().getMinute() + 'min:' + locacao.getDataDevolucao().getSecond() + 's'}]]</li>
-												</ul>
-												
-												<h4 class="title is-4">Filme alugado:</h4>
-												<ul>
-													<li>[[${locacao.getFilme()}]]</li>
-												</ul>
-											</section>
-											<footer th:fragment="modal-footer" class="modal-card-foot">
-												<a class="button is-link" th:href="@{|/locacao/editar/${locacao.getId()}|}">
-													<i class="mr-3 fas fa-pen"></i> Editar
-												</a>
-												<a class="button is-danger" 
-													th:href="@{|/locacao/deletar/${locacao.getId()}|}"
-													th:confirm-delete="|Deseja deletar a locação de ${locacao.getClienteCpf()}?|"
-													onclick="return confirm(this.getAttribute('confirm-delete'));">
-													<i class="mr-3 fas fa-trash"></i> Deletar
-												</a>
-												<a class="button is-success" 
-													th:href="@{|/locacao/devolver/${locacao.getId()}|}"
-													th:confirm-devolucao="|Deseja devolver a locação de ${locacao.getClienteCpf()}?|"
-													onclick="return confirm(this.getAttribute('confirm-devolucao'));">
-													<i class="mr-3 fas fa-cart-arrow-down"></i> Completar devolução
-												</a>
-											</footer>
-										</div>
-									</div>
 								</tr>
 							</th:block>
 						</tbody>
@@ -177,5 +93,49 @@
 			</div>
 		</div>
 	</section>
+	
+	<div th:fragment="locacao-modal" class="modal" th:id="|modal-${locacao.getId()}|">
+		<div th:replace="fragments/modal :: modal-background(id=${locacao.getId()})"></div>
+		<div class="modal-card">
+			<header th:replace="fragments/modal :: modal-header(id=${locacao.getId()}, titulo=${locacao.getFilme()})"></header>
+			<section class="modal-card-body">
+				<h4 class="title is-4">Informações gerais:</h4>
+				<ul class="mb-5">
+					<li>Identificador: [[${locacao.getId()}]]</li>
+					<li>CPF do cliente: [[${locacao.getClienteCpf()}]]</li>
+					<li>Valor da locação: [[${locacao.getValor()}]]</li>
+					<li>Data de locação: 
+					[[${locacao.getDataLocacao().getDayOfMonth()+ '/' + locacao.getDataLocacao().getMonth() + '/' + locacao.getDataLocacao().getYear()
+					+ ' ' + locacao.getDataLocacao().getHour() + 'h:' + locacao.getDataLocacao().getMinute() + 'min:' + locacao.getDataLocacao().getSecond() + 's'}]]
+					</li>
+					<li>Data de devolução: [[${locacao.getDataDevolucao() == null ? "NÃO DEVOLVIDO" : 
+					locacao.getDataDevolucao().getDayOfMonth()+ '/' + locacao.getDataDevolucao().getMonth() + '/' + locacao.getDataDevolucao().getYear()
+					+ ' ' + locacao.getDataDevolucao().getHour() + 'h:' + locacao.getDataDevolucao().getMinute() + 'min:' + locacao.getDataDevolucao().getSecond() + 's'}]]</li>
+				</ul>
+				
+				<h4 class="title is-4">Filme alugado:</h4>
+				<ul>
+					<li>[[${locacao.getFilme()}]]</li>
+				</ul>
+			</section>
+			<footer th:fragment="modal-footer" class="modal-card-foot">
+				<a class="button is-link" th:href="@{|/locacao/editar/${locacao.getId()}|}">
+					<i class="mr-3 fas fa-pen"></i> Editar
+				</a>
+				<a class="button is-danger" 
+					th:href="@{|/locacao/deletar/${locacao.getId()}|}"
+					th:confirm-delete="|Deseja deletar a locação de ${locacao.getClienteCpf()}?|"
+					onclick="return confirm(this.getAttribute('confirm-delete'));">
+					<i class="mr-3 fas fa-trash"></i> Deletar
+				</a>
+				<a class="button is-success" 
+					th:href="@{|/locacao/devolver/${locacao.getId()}|}"
+					th:confirm-devolucao="|Deseja devolver a locação de ${locacao.getClienteCpf()}?|"
+					onclick="return confirm(this.getAttribute('confirm-devolucao'));">
+					<i class="mr-3 fas fa-cart-arrow-down"></i> Completar devolução
+				</a>
+			</footer>
+		</div>
+	</div>
 	
 </html>

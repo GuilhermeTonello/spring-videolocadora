@@ -49,8 +49,9 @@
 						</a>
 						
 						<div class="navbar-dropdown is-right">
+							<span class="navbar-item" th:text="|Logado como: ${#authentication.name}|"></span>
 							<form class="navbar-item" method="POST" th:action="@{/logout}">
-								<button class="button is-primary" type="submit" role="button">
+								<button class="button is-danger is-fullwidth" type="submit" role="button">
 									Sair
 								</button>
 							</form>

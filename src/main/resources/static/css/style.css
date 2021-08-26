@@ -17,3 +17,16 @@ td, th {
 	max-width: 150px;
 	word-wrap: break-word;
 }
+
+div.login-form {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+@media screen and (max-width: 900px) {
+	div.login-form {
+		width: 90%;
+	}
+}
