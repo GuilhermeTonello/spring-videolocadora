@@ -7,7 +7,15 @@
 		<form class="box" method="POST"
 			th:action="@{/login}">
 			<h1 class="title is-4">Faça o login antes de continuar:</h1>
-
+	
+			<article class="message is-danger" th:if="${param.keySet().contains('error')}">
+				<div class="message-header">
+					<p>
+						Login e/ou senha inválidos!
+					</p>
+				</div>
+			</article>
+	
 			<div class="field">
 				<label class="label" for="login">Login:</label>
 				<div class="control has-icons-left">
