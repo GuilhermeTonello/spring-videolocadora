@@ -5,13 +5,14 @@
 		<a th:onclick="openModal([[${id}]])" title="Ver informações">
 			<i class="fas fa-search"></i>
 		</a>
-		<a th:href="@{|/${baseUrl}/editar/${id}|}" class="ml-6 is-hidden-mobile" title="Editar">
+		<a th:href="@{|/${baseUrl}/editar/${id}|}" class="ml-6 is-hidden-mobile" title="Editar" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_FUNCIONARIO')">
 			<i class="fas fa-pen"></i>
 		</a>
 		<a th:href="@{|/${baseUrl}/deletar/${id}|}"
 			 class="ml-6 is-hidden-mobile" title="Deletar"
 			 th:confirm-delete="|${confirmDeleteText}|"
-			 onclick="return confirm(this.getAttribute('confirm-delete'));">
+			 onclick="return confirm(this.getAttribute('confirm-delete'));"
+			 sec:authorize="hasAnyRole('ROLE_ADMIN')">
 			<i class="fas fa-trash"></i>
 		</a>
 	</th:block>

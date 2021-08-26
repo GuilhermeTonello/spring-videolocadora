@@ -10,13 +10,14 @@
 	</header>
 	
 	<footer th:fragment="modal-footer" class="modal-card-foot">
-		<a class="button is-link" th:href="@{|/${baseUrl}/editar/${id}|}">
+		<a class="button is-link" th:href="@{|/${baseUrl}/editar/${id}|}" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_FUNCIONARIO')">
 			<i class="mr-3 fas fa-pen"></i> Editar
 		</a>
 		<a class="button is-danger" 
 			th:href="@{|/${baseUrl}/deletar/${id}|}"
 			th:confirm-delete="|${confirmDeleteText}|"
-			onclick="return confirm(this.getAttribute('confirm-delete'));">
+			onclick="return confirm(this.getAttribute('confirm-delete'));"
+			sec:authorize="hasAnyRole('ROLE_ADMIN')">
 			<i class="mr-3 fas fa-trash"></i> Deletar
 		</a>
 	</footer>

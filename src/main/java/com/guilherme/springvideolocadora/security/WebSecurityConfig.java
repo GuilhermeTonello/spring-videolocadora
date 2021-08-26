@@ -23,6 +23,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 			.authorizeRequests()
 				.antMatchers("/js/**", "/css/**", "/webfonts/**", "/login").permitAll()
+				.antMatchers("/*/deletar/**", "/usuario/**").hasRole("ADMIN")
+				.antMatchers("/*/listar/**", 
+						"/locacao/devolver/**", "/locacao/cadastrar/**", "/locacao/salvar/**", 
+						"/cliente/cadastrar/**", "/cliente/salvar/**",
+						"/home", "/index", "/")
+					.hasAnyRole("ADMIN", "FUNCIONARIO", "ESTAGIARIO")
+				.antMatchers("/*/salvar/**", "/*/editar/**", "/*/cadastrar/**").hasAnyRole("ADMIN", "FUNCIONARIO")
 			.anyRequest()
 				.authenticated()
 			.and()

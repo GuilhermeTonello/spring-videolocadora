@@ -119,13 +119,14 @@
 				</ul>
 			</section>
 			<footer th:fragment="modal-footer" class="modal-card-foot">
-				<a class="button is-link" th:href="@{|/locacao/editar/${locacao.getId()}|}">
+				<a class="button is-link" th:href="@{|/locacao/editar/${locacao.getId()}|}" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_FUNCIONARIO')">
 					<i class="mr-3 fas fa-pen"></i> Editar
 				</a>
 				<a class="button is-danger" 
 					th:href="@{|/locacao/deletar/${locacao.getId()}|}"
 					th:confirm-delete="|Deseja deletar a locação de ${locacao.getClienteCpf()}?|"
-					onclick="return confirm(this.getAttribute('confirm-delete'));">
+					onclick="return confirm(this.getAttribute('confirm-delete'));"
+					sec:authorize="hasAnyRole('ROLE_ADMIN')">
 					<i class="mr-3 fas fa-trash"></i> Deletar
 				</a>
 				<a class="button is-success" 

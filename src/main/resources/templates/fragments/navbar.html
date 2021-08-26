@@ -68,7 +68,7 @@
 		</a>
 		
 		<div class="navbar-dropdown">
-			<a class="navbar-item" th:href="@{|/${objeto.toLowerCase().concat('/cadastrar')}|}">
+			<a class="navbar-item" th:href="@{|/${objeto.toLowerCase().concat('/cadastrar')}|}" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_FUNCIONARIO')">
 				Cadastrar [[${objeto}]]
 			</a>
 			<a class="navbar-item" th:href="@{|/${objeto.toLowerCase().concat('/listar')}|}">
