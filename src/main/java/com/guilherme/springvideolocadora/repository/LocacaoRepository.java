@@ -15,6 +15,7 @@ public interface LocacaoRepository extends MongoRepository<Locacao, String> {
 	@Query(value = "{ dataDevolucao: {$ne:null} }", sort = "{ dataDevolucao: -1 }")
 	Page<Locacao> findUltimasDevolucoes(Pageable pageable);
 	
+	@Query(value = "{ 'clienteCpf': {$regex: /.*?0.*/, $options: 'i'} }")
 	Page<Locacao> findByClienteCpf(String clienteCpf, Pageable pageable);
 	
 }
