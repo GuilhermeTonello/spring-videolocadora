@@ -40,6 +40,8 @@
 							</a>
 						</div>
 					</div>
+					
+					<div th:replace="this :: dropdown-menu(objeto='Usuario')" sec:authorize="hasAnyRole('ROLE_ADMIN')"></div>
 				</div>
 				
 				<div class="navbar-end">

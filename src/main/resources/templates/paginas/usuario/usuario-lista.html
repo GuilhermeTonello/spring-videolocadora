@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/config :: head(pagina='Lista de usuários')"></head>
+<body>
+	<header th:replace="fragments/navbar :: navbar"></header>
+	
+	<main class="section">
+		<div th:replace="fragments/action-messages :: erro-nao-encontrado"></div>
+		<div th:replace="fragments/action-messages :: sucesso"></div>
+		
+		<form th:action="@{/usuario/listar}">
+			<div class="field">
+				<label class="label" for="busca">Nome ou login do usuário:</label>
+				<div class="control">
+					<input class="input" type="text" placeholder="Nome ou login do usuário..." name="busca" />
+				</div>
+			</div>
+			
+			<button class="button is-link mt-2 mb-5" type="submit" role="button">PESQUISAR</button>
+		</form>
+		
+		<table class="table is-striped is-fullwidth">
+			<thead>
+				<tr>
+					<th>Nome</th>
+					<th>Login</th>
+					<th>Ações</th>
+				</tr>
+			</thead>
+			<tbody>
+				<th:block th:each="usuario : ${usuarios}">
+					<tr>
+						<td>[[${usuario.getNome()}]]</td>
+						<td>[[${usuario.getLogin()}]]</td>
+						<td>
+							<th:block th:replace="fragments/table-actions :: coluna-acoes(id=${usuario.getId()}, 
+								baseUrl='usuario', 
+								confirmDeleteText='Deseja deletar o usuário ' + ${usuario.getLogin()} + '?')">
+							</th:block>
+							<div class="modal" th:id="|modal-${usuario.getId()}|">
+								<div th:replace="fragments/modal :: modal-background(id=${usuario.getId()})"></div>
+								<div class="modal-card">
+									<header th:replace="fragments/modal :: modal-header(id=${usuario.getId()}, titulo=${usuario.getNome()})"></header>
+									<section class="modal-card-body">
+										<h4 class="title is-4">Informações básicas:</h4>
+										<ul class="mb-5">
+											<li>Identificador: [[${usuario.getId()}]]</li>
+											<li>Nome: [[${usuario.getNome()}]]</li>
+											<li>Login: [[${usuario.getLogin()}]]</li>
+										</ul>
+										
+										<h4 class="title is-4">Permissões:</h4>
+										<ul>
+											<th:block th:each="role : ${usuario.getRoles()}">
+												<li>[[${role.replace("ROLE_", "")}]]</li>
+											</th:block>
+										</ul>
+									</section>
+									<footer 
+										th:replace="fragments/modal :: modal-footer(id=${usuario.getId()}, 
+											baseUrl='usuario', 
+											confirmDeleteText='Deseja deletar o usuário ' + ${usuario.getLogin()} + '?')">
+									</footer>
+								</div>
+							</div>
+						</td>
+					</tr>
+				</th:block>
+			</tbody>
+		</table>
+		<nav th:replace="fragments/paginacao :: paginacao(lista=${usuarios}, objeto='usuario')"></nav>
+	</main>
+	
+	<th:block th:replace="fragments/config :: scripts"></th:block>
+</body>
+</html>

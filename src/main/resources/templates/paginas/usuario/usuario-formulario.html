@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/config :: head(pagina='Formulário de usuários')"></head>
+<body>
+	<header th:replace="fragments/navbar :: navbar"></header>
+	
+	<main class="section">
+		<div class="columns">
+			<div class="column">
+				<div th:replace="fragments/action-messages :: erros-formulario"></div>
+				<form th:action="@{/usuario/salvar}" method="POST" th:object="${usuario}">
+					<input type="hidden" th:field="*{id}" />
+					
+					<h5 class="title is-5">Informações básicas:</h5>
+					<div class="field">
+						<label class="label" for="nome">Nome do usuário:</label>
+						<div class="control">
+							<input class="input" type="text" placeholder="Nome do usuário..." th:field="*{nome}" />
+						</div>
+					</div>
+					
+					<div class="field">
+						<label class="label" for="login">Login do usuário:</label>
+						<div class="control">
+							<input class="input" type="text" placeholder="Login do usuário..." th:field="*{login}" />
+						</div>
+					</div>
+					
+					<div class="field">
+						<label class="label" for="nome">Senha do usuário:</label>
+						<div class="control">
+							<input class="input" type="password" placeholder="Senha do usuário..." th:field="*{senha}" />
+						</div>
+					</div>
+					
+					<h5 class="title is-5">Permissões:</h5>
+					<div>
+						<span class="tag is-info">
+							<label class="checkbox" for="roles1">
+									<input type="checkbox" 
+										th:field="*{roles}" 
+										th:value="ROLE_ADMIN" />
+									ADMIN
+							</label>
+						</span>
+						
+						<span class="tag is-info">
+							<label class="checkbox" for="roles2">
+									<input type="checkbox" 
+										th:field="*{roles}" 
+										th:value="ROLE_FUNCIONARIO" />
+									FUNCIONÁRIO
+							</label>
+						</span>
+						
+						<span class="tag is-info">
+							<label class="checkbox" for="roles3">
+									<input type="checkbox" 
+										th:field="*{roles}" 
+										th:value="ROLE_ESTAGIARIO" />
+									ESTAGIÁRIO
+							</label>
+						</span>
+					</div>
+					
+					<button class="button is-link mt-5 is-medium" type="submit" role="button">SALVAR</button>
+				</form>
+			</div>
+		</div>
+	</main>
+	
+	<th:block th:replace="fragments/config :: scripts"></th:block>
+</body>
+</html>
