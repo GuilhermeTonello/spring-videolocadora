@@ -29,6 +29,7 @@ Para realizar esse projeto, algumas dependências foram utilizadas, elas são:
     - Spring Data MongoDB
     - Spring Web
     - Spring Boot DevTools
+    - Spring Security
 - Lombok ([https://projectlombok.org/](https://projectlombok.org/)) - Para redução de alguns trechos de códigos
 - Thymeleaf ([https://www.thymeleaf.org/](https://www.thymeleaf.org/)) - Como template engine para as páginas HTML
 - Bulma ([https://bulma.io/](https://bulma.io/)) - Como framework CSS
