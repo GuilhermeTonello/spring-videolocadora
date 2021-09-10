@@ -10,6 +10,7 @@
         - Banco de dados
         - Segurança
 - Rodando o projeto
+- Imagens
 
 ## Sobre
 
@@ -96,3 +97,15 @@ Caso você não saiba qual a URI do MongoDB, acesse o site: [https://docs.mongod
 7. Digite novamente o comando no terminal ou prompt de comando para executar o projeto
 8. Abra um navegador em localhost:NOVA PORTA, no exemplo dado, localhost:8081
 9. Para parar o projeto, aperta **Ctrl + C** no terminal ou prompt de comando
+
+## Imagens
+Algumas imagens das páginas do projeto
+
+1. Página de login
+![Página de login](./imagens/pagina-login.png)
+
+2. Página de cadastro de clientes
+![Página de cadastro de clientes](./imagens/pagina-cadastro-cliente.png)
+
+3. Página de listagem das categorias de filmes
+![Página de listagem das categorias de filmes](./imagens/pagina-lista-categoria.png)
